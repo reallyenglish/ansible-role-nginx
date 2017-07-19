@@ -1,0 +1,2 @@
+__nginx_db_dir: /var/db/nginx
+__nginx_conf_dir: /usr/local/etc/nginx

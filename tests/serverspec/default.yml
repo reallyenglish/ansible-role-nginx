@@ -1,0 +1,5 @@
+- hosts: localhost
+  roles:
+    - ansible-role-nginx
+  vars:
+    nginx_config: ""
