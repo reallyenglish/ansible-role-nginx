@@ -7,7 +7,7 @@ nginx_conf_dir: "{{ __nginx_conf_dir }}"
 nginx_conf_fragments_dir: "{{ nginx_conf_dir }}/conf.d"
 nginx_conf_file: "{{ nginx_conf_dir }}/nginx.conf"
 nginx_flags: ""
-nginx_validate_enable: no
+nginx_validate_enable: yes
 
 nginx_config: ""
 nginx_config_fragments: []
