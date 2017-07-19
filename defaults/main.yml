@@ -1,8 +1,13 @@
-nginx_user: nginx
-nginx_group: nginx
-nginx_log_dir: /var/log/nginx
-nginx_db_dir: "{{ __nginx_db_dir }}"
+nginx_user: "{{ __nginx_user }}"
+nginx_group: "{{ __nginx_group }}"
+nginx_log_dir: "{{ __nginx_log_dir }}"
 nginx_service: nginx
+nginx_package: "{{ __nginx_package }}"
 nginx_conf_dir: "{{ __nginx_conf_dir }}"
-nginx_conf_file: "{{ __nginx_conf_dir }}/nginx.conf"
+nginx_conf_fragments_dir: "{{ nginx_conf_dir }}/conf.d"
+nginx_conf_file: "{{ nginx_conf_dir }}/nginx.conf"
 nginx_flags: ""
+nginx_validate_enable: no
+
+nginx_config: ""
+nginx_config_fragments: []

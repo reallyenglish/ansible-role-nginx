@@ -2,4 +2,32 @@
   roles:
     - ansible-role-nginx
   vars:
-    nginx_config: ""
+    nginx_flags: -q
+    nginx_config: |
+      worker_processes 1;
+      events {
+        worker_connections 1024;
+      }
+      http {
+        include {{ nginx_conf_dir }}/mime.types;
+        include {{ nginx_conf_fragments_dir }}/foo.conf;
+        default_type application/octet-stream;
+        sendfile on;
+        keepalive_timeout 65;
+        server {
+          listen 80;
+          server_name localhost;
+          location / {
+            root /usr/local/www/nginx;
+            index index.html;
+          }
+          error_page 500 502 503 504 /50x.html;
+          location = /50x.html {
+            root   /usr/local/www/nginx-dist;
+          }
+        }
+      }
+    nginx_config_fragments:
+      - name: foo.conf
+        config: "# FOO"
+        state: present

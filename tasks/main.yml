@@ -5,6 +5,8 @@
 
 - include: "install-{{ ansible_os_family }}.yml"
 
+- include: "configure-{{ ansible_os_family }}.yml"
+
 - name: Create log directory
   file:
     path: "{{ nginx_log_dir }}"
@@ -14,20 +16,53 @@
     state: directory
   notify: Restart nginx
 
-- name: Create db directory
+- name: Create nginx_conf_dir
   file:
-    path: "{{ nginx_db_dir }}"
-    mode: 0755
-    owner: "{{ nginx_user }}"
-    group: "{{ nginx_group }}"
+    path: "{{ nginx_conf_dir }}"
     state: directory
+
+- name: Create nginx_conf_fragments_dir
+  file:
+    path: "{{ nginx_conf_fragments_dir }}"
+    state: directory
+
+- name: Assert that nginx_config_fragments is valid
+  assert:
+    that:
+      - "'name' in item"
+      - item.name | length > 0
+      - "'config' in item"
+      - "'state' in item"
+      - "item.state == 'present' or item.state == 'absent'"
+  with_items: "{{ nginx_config_fragments }}"
+
+- name: Create nginx_conf_fragments
+  template:
+    src: fragment.j2
+    dest: "{{ nginx_conf_fragments_dir }}/{{ item.name }}"
+    # XXX you cannot validate each fragment
+    #validate: echo %s
+  with_items: "{{ nginx_config_fragments }}"
+  when:
+    - '"state" in item'
+    - "item.state == 'present'"
+
+- name: Remove nginx_conf_fragments
+  file:
+    path: "{{ nginx_conf_fragments_dir }}/{{ item.name }}"
+    state: absent
+  with_items: "{{ nginx_config_fragments }}"
+  when:
+    - '"state" in item'
+    - "item.state == 'absent'"
+
   notify: Restart nginx
 
 - name: Create nginx.conf
   template:
     src: nginx.conf.j2
     dest: "{{ nginx_conf_file }}"
-    validate: echo %s
+    validate: "{% if nginx_validate_enable %}nginx -c %s -t{% endif %}"
   notify: Restart nginx
 
 - name: Start nginx

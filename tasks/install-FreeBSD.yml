@@ -2,5 +2,5 @@
 
 - name: Install nginx
   pkgng:
-    name: nginx
+    name: "{{ nginx_package }}"
     state: present

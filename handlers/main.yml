@@ -2,5 +2,5 @@
 
 - name: Restart nginx
   service:
-    name: nginx
+    name: "{{ nginx_service }}"
     state: restarted
