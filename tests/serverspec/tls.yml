@@ -1,36 +1,45 @@
 - hosts: localhost
   roles:
+    - name: reallyenglish.redhat-repo
+      when: ansible_os_family == 'RedHat'
     - reallyenglish.x509-certificate
     - ansible-role-nginx
   vars:
+    www_root_dir: "{% if ansible_os_family == 'FreeBSD' %}/usr/local/www/nginx{% elif ansible_os_family == 'OpenBSD' %}/var/www/htdocs{% elif ansible_os_family == 'Debian' %}/var/www/html{% elif ansible_os_family == 'RedHat' %}/usr/share/nginx/html{% endif %}"
     # XXX set this to no because the configuration contains releative path.
     nginx_validate_enable: no
     nginx_config: |
+      {% if ansible_os_family == 'Debian' or ansible_os_family == 'RedHat' %}
+      user {{ nginx_user }};
+      pid /run/nginx.pid;
+      {% endif %}
       worker_processes 1;
+      error_log {{ nginx_log_dir }}/error.log;
       events {
         worker_connections 1024;
       }
       http {
         include {{ nginx_conf_dir }}/mime.types;
         include {{ nginx_conf_fragments_dir }}/foo.conf;
+        access_log {{ nginx_log_dir }}/access.log;
         default_type application/octet-stream;
         sendfile on;
         keepalive_timeout 65;
         server {
           listen 80;
           server_name localhost;
+          root {{ www_root_dir }};
           location / {
-            root /usr/local/www/nginx;
             index index.html;
           }
           error_page 500 502 503 504 /50x.html;
           location = /50x.html {
-            root   /usr/local/www/nginx-dist;
           }
         }
         server {
           listen 443 ssl;
           server_name localhost;
+          root {{ www_root_dir }};
           ssl_certificate certs/nginx.pub;
           ssl_certificate_key certs/nginx.key;
           ssl_session_cache shared:SSL:1m;
@@ -38,10 +47,9 @@
           ssl_ciphers HIGH:!aNULL:!MD5;
           ssl_prefer_server_ciphers on;
           location / {
-            root /usr/local/www/nginx-dist;
             index index.html;
-          }
-        }
+           }
+         }
       }
     nginx_config_fragments:
       - name: foo.conf
@@ -49,7 +57,7 @@
         state: present
 
     x509_certificate_additional_packages:
-      - nginx
+      - "{% if ansible_os_family == 'OpenBSD' %}nginx--{% else %}nginx{% endif %}"
     x509_certificate:
       - name: nginx
         state: present
@@ -112,3 +120,8 @@
             DZERGGX2hN9r7xahxZwnIguKQzBr6CTYBSWGvGYCHJKSLKn9Yb6OAJEN1epmXdlx
             kPF7nY8Cs8V8LYiuuDp9UMLRc90AmF87rqUrY5YP2zw6iNNvUBKs
             -----END RSA PRIVATE KEY-----
+    redhat_repo:
+      epel:
+        mirrorlist: "http://mirrors.fedoraproject.org/mirrorlist?repo=epel-{{ ansible_distribution_major_version }}&arch={{ ansible_architecture }}"
+        gpgcheck: yes
+        enabled: yes

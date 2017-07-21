@@ -1,0 +1,6 @@
+---
+
+- name: Install nginx
+  openbsd_pkg:
+    name: "{{ nginx_package }}"
+    state: present

@@ -9,17 +9,16 @@ galaxy_info:
   - name: FreeBSD
     versions:
     - 10.3
-#  - name: OpenBSD
-#    versions:
-#    - 6.0
-#  - name: Ubuntu
-#    versions:
-#    - trusty
-#  - name: EL
-#    versions:
-#    - 7
-
+  - name: OpenBSD
+    versions:
+    - 6.0
+  - name: Ubuntu
+    versions:
+    - xeinal
+  - name: EL
+    versions:
+    - 7
   galaxy_tags:
-    - system
+    - nginx
 #dependencies:
 #  - { role: username.common, some_parameter: 3 }

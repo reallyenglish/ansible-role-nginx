@@ -1,7 +1,7 @@
 ---
 
 - name: Install nginx
-  pkgng:
+  apt:
     name: "{{ nginx_package }}"
     state: present
 

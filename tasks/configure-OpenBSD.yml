@@ -1,0 +1,7 @@
+---
+
+- name: Set nginx_flags in /etc/rc.conf.local
+  service:
+    name: "{{ nginx_service }}"
+    enabled: yes
+    arguments: "{{ nginx_flags }}"

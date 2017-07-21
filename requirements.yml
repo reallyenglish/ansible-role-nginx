@@ -2,3 +2,4 @@
 
 - name: reallyenglish.x509-certificate
   src: https://github.com/reallyenglish/ansible-role-x509-certificate/archive/master.tar.gz
+- name: reallyenglish.redhat-repo

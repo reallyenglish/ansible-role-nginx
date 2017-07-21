@@ -1,0 +1,5 @@
+__nginx_user: www
+__nginx_group: www
+__nginx_package: nginx--
+__nginx_log_dir: /var/www/logs
+__nginx_conf_dir: /etc/nginx
