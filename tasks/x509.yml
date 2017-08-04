@@ -1,0 +1,7 @@
+---
+
+# XXX this task should have been in `tasks/main.yml` but ansible older than 2.2
+# does not understand `include_role` and bails out.
+- name: Include x509-certificate
+  include_role:
+    name: reallyenglish.x509-certificate

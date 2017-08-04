@@ -20,8 +20,25 @@ None
 | `nginx_conf_file` | path to `nginx.conf` | `{{ nginx_conf_dir }}/nginx.conf` |
 | `nginx_flags` | optional flags to command `nginx`. (not supported in RedHat because it does not provide a mechanism to pass one) | `""` |
 | `nginx_validate_enable` | when `yes` enable `nginx.conf` validation. note that all the path in all configuration files must be absolute. set to `no` if relative path must be used | `yes` |
+| `nginx_include_x509_certificate` | include and execute `reallyenglish.x509-certificate` during the play when `yes` (see below) | `no` |
 | `nginx_config` | string of `nginx.conf` content | `""` |
 | `nginx_config_fragments` | list of optional configuration fragments in `nginx_conf_fragments_dir` (see below) | `[]` |
+
+## `nginx_include_x509_certificate`
+
+When `yes`, this variable includes and execute
+[`reallyenglish.x509`](https://github.com/reallyenglish/ansible-role-x509-certificate)
+during the play, which makes it possible to manage certificates without ugly
+hacks. This is only supported in `ansible` version _at least_ 2.2 and later.
+
+Known supported platforms:
+
+| platform | `ansible version` |
+|----------|-------------------|
+| CentOS   | 2.3.1.0           |
+| FreeBSD  | 2.3.1.0           |
+| Ubuntu   | 2.3.1.0-1ppa~xenial |
+| Ubuntu   | 2.3.1.0-1ppa~trusty |
 
 ## `nginx_config_fragments`
 

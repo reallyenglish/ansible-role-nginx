@@ -8,6 +8,7 @@ nginx_conf_fragments_dir: "{{ nginx_conf_dir }}/conf.d"
 nginx_conf_file: "{{ nginx_conf_dir }}/nginx.conf"
 nginx_flags: ""
 nginx_validate_enable: yes
+nginx_include_x509_certificate: no
 
 nginx_config: ""
 nginx_config_fragments: []
