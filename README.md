@@ -31,6 +31,10 @@ When `yes`, this variable includes and execute
 during the play, which makes it possible to manage certificates without ugly
 hacks. This is only supported in `ansible` version _at least_ 2.2 and later.
 
+`reallyenglish.x509` must be listed in `requirements.yml` when `yes`. The role
+is not automatically downloaded as a dependency because the role does NOT
+depend on it in `meta/main.yml`.
+
 Known supported platforms:
 
 | platform | `ansible version` |
@@ -92,7 +96,8 @@ This variable is a list of dict. Keys and values are explained below.
 
 # Dependencies
 
-None
+- `reallyenglish.x509-certificate` when `nginx_include_x509_certificate` is
+  true
 
 # Example Playbook
 
