@@ -12,14 +12,14 @@
       pid /run/nginx.pid;
       {% endif %}
       worker_processes 1;
-      error_log {{ nginx_log_dir }}/error.log;
+      error_log {{ nginx_error_log_file }};
       events {
         worker_connections 1024;
       }
       http {
         include {{ nginx_conf_dir }}/mime.types;
         include {{ nginx_conf_fragments_dir }}/foo.conf;
-        access_log {{ nginx_log_dir }}/access.log;
+        access_log {{ nginx_access_log_file }};
         default_type application/octet-stream;
         sendfile on;
         keepalive_timeout 65;

@@ -13,6 +13,8 @@ None
 | `nginx_user` | user of `nginx` | `{{ __nginx_user }}` |
 | `nginx_group` | group of `nginx` | `{{ __nginx_group }}` |
 | `nginx_log_dir` | path to log directory | `{{ __nginx_log_dir }}` |
+| `nginx_access_log_file` | path to `access.log` | `{{ nginx_log_dir }}/access.log` |
+| `nginx_error_log_file` | path to `error.log` | `{{ nginx_log_dir }}/error.log` |
 | `nginx_service` | service name of `nginx` | `nginx` |
 | `nginx_package` | package name of `nginx` | `{{ __nginx_package }}` |
 | `nginx_conf_dir` | path to configuration directory | `{{ __nginx_conf_dir }}` |
@@ -116,14 +118,14 @@ This variable is a list of dict. Keys and values are explained below.
       pid /run/nginx.pid;
       {% endif %}
       worker_processes 1;
-      error_log {{ nginx_log_dir }}/error.log;
+      error_log {{ nginx_error_log_file }};
       events {
         worker_connections 1024;
       }
       http {
         include {{ nginx_conf_dir }}/mime.types;
         include {{ nginx_conf_fragments_dir }}/foo.conf;
-        access_log {{ nginx_log_dir }}/access.log;
+        access_log {{ nginx_access_log_file }};
         default_type application/octet-stream;
         sendfile on;
         keepalive_timeout 65;
