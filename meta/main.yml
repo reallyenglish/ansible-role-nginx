@@ -9,10 +9,14 @@ galaxy_info:
   - name: FreeBSD
     versions:
     - 10.3
+# XXX 11.1 is not supported by galaxy, see
+# https://github.com/ansible/galaxy-issues/issues/296
+#   - 11.1
   - name: OpenBSD
     versions:
     - 6.0
     - 6.1
+#   - 6.2
   - name: Ubuntu
     versions:
     - trusty
@@ -24,5 +28,4 @@ galaxy_info:
     - nginx
     - ssl
     - tls
-#dependencies:
-#  - { role: username.common, some_parameter: 3 }
+dependencies:
