@@ -24,7 +24,7 @@ provisioner:
 platforms:
   - name: freebsd-10.3-amd64
     driver:
-      box: trombik/ansible-freebsd-10.3-amd64
+      box: mitsuruy/ansible-freebsd-10.3-amd64
       box_check_update: false
     driver_config:
       ssh:
@@ -35,7 +35,7 @@ platforms:
 
   - name: freebsd-11.1-amd64
     driver:
-      box: trombik/ansible-freebsd-11.1-amd64
+      box: mitsuruy/ansible-freebsd-11.1-amd64
       box_check_update: false
     driver_config:
       ssh:
@@ -46,7 +46,7 @@ platforms:
 
   - name: openbsd-6.0-amd64
     driver:
-      box: trombik/ansible-openbsd-6.0-amd64
+      box: mitsuruy/ansible-openbsd-6.0-amd64
       box_check_update: false
     driver_config:
       ssh:
@@ -57,7 +57,7 @@ platforms:
 
   - name: openbsd-6.1-amd64
     driver:
-      box: trombik/ansible-openbsd-6.1-amd64
+      box: mitsuruy/ansible-openbsd-6.1-amd64
       box_check_update: false
     driver_config:
       ssh:
@@ -68,7 +68,7 @@ platforms:
 
   - name: openbsd-6.2-amd64
     driver:
-      box: trombik/ansible-openbsd-6.2-amd64
+      box: mitsuruy/ansible-openbsd-6.2-amd64
       box_check_update: false
     driver_config:
       ssh:
@@ -79,17 +79,17 @@ platforms:
 
   - name: ubuntu-14.04-amd64
     driver:
-      box: trombik/ansible-ubuntu-14.04-amd64
+      box: mitsuruy/ansible-ubuntu-14.04-amd64
       box_check_update: false
 
   - name: ubuntu-16.04-amd64
     driver:
-      box: trombik/ansible-ubuntu-16.04-amd64
+      box: mitsuruy/ansible-ubuntu-16.04-amd64
       box_check_update: false
 
   - name: centos-7.3-x86_64
     driver:
-      box: trombik/ansible-centos-7.3-x86_64
+      box: mitsuruy/ansible-centos-7.3-x86_64
       box_check_update: false
 
 suites:
